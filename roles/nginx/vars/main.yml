@@ -1,0 +1,5 @@
+---
+
+nginx_port: 80
+server_name: "aydin.io"
+directory: "/var/www/{{ server_name }}/public"

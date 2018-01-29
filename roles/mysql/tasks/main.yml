@@ -1,0 +1,6 @@
+---
+
+- name: "Enabling EPEL Release"
+  yum: name=epel-release state=present
+- name: "Installing MariaDB Server"
+  yum: name=mariadb-server state=present

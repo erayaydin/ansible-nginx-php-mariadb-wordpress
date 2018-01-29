@@ -1,0 +1,16 @@
+---
+
+- name: "Enabling EPEL Release"
+  yum: name=epel-release state=present
+- name: "Installing nginx"
+  yum: name=nginx state=present
+- name: "Creating server block..."
+  template:
+    src=nginx.conf
+    dest="/etc/nginx/conf.d/{{ server_name }}.conf"
+  notify:
+    - restart-nginx
+- name: "Creating server folder"
+  file: path="/var/www/{{ server_name }}/" state="directory" mode=0755
+- name: "Creating server public folder"
+  file: path="/var/www/{{ server_name }}/public" state="directory" mode=0755

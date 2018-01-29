@@ -1,0 +1,11 @@
+---
+
+username: "toor"
+password: "123456"
+database: "dbname"
+sqlhost: "159.65.29.1"
+
+wp_version: "4.9.2"
+site_name: "aydin.io"
+owner: "root"
+group: "root"

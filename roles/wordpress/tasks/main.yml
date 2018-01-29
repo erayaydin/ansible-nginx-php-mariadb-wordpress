@@ -1,0 +1,16 @@
+---
+
+- name: "Check installed"
+  stat:
+    path: /var/www/{{ site_name }}/public/index.php
+  register: installed
+- name: "Downloading Wordpress"
+  get_url: url=http://wordpress.org/wordpress-{{ wp_version }}.tar.gz dest=/var/www/{{ site_name }}/public/wordpress-{{ wp_version }}.tar.gz
+  when: installed.stat.exists == False
+- name: "Extracting wordpress..."
+  command: chdir=/var/www/{{ site_name }}/public/ /bin/tar xvf wordpress-{{ wp_version }}.tar.gz --strip-components=1 creates=/var/www/{{ site_name }}/public/index.php
+  when: installed.stat.exists == False
+- name: "Copy wp-config file"
+  template: src=wp-config.php.j2 dest=/var/www/{{ site_name }}/public/wp-config.php
+- name: "Change ownership"
+  file: path=/var/www/{{ site_name }} owner={{ owner }} group={{ group }} state=directory recurse=yes
